@@ -1,6 +1,18 @@
 # JFinal Hibernate-Validator Plugin
 JFinal的hibernate-validator插件，能够在jfinal中使用hibernate-validator插件的基本功能
 
+## 准备
+本插件需要依赖jfinal-java8依赖:
+将项目中的jfinal依赖替换为: 
+```xml
+  <dependency>
+      <groupId>com.jfinal</groupId>
+      <artifactId>jfinal-java8</artifactId>
+      <version>3.4</version>
+  </dependency>
+```
+编译时开启-parameters参数. 详见: [jFinal文档](http://www.jfinal.com/doc/3-3)
+
 ## 使用
 - 可以将项目根目录下的jFinal-hibernateValidator-plugin.jar添加到自己的本地项目依赖中。  
 然后在自己的maven pom.xml中添加如下依赖：
@@ -140,6 +152,7 @@ JFinal的hibernate-validator插件，能够在jfinal中使用hibernate-validator
     </table>
     
 - 自定义对象验证:  
+    *需要为自定义接收参数对象的字段生成getter和setter方法*
     ```java
     public class Test {
         public String getTest1() {
