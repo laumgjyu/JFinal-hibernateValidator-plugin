@@ -175,7 +175,7 @@ JFinal的hibernate-validator插件，能够在jfinal中使用hibernate-validator
     }
     ```
     
-    **此处注意请求参数, 请求参数的key应该为test.test1, 即对象名.字段名; 如果不想使用这种方式, 可以在添加@Param("")注解,如下**
+    **此处注意请求参数, 请求参数的key应该为test.test1, 即对象名.字段名首字母小写; 如果不想使用这种方式, 可以在添加@Param("")注解,如下**
     ```java
     public void test2(@Para("") @ValidParam Test test) {
         renderJson(test);
