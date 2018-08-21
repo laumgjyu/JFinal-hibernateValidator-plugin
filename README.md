@@ -168,7 +168,7 @@ JFinal的hibernate-validator插件，能够在jfinal中使用hibernate-validator
     }
     ```
     
-    actionz注解,注意此处要使用本插件提供的@ValidParam注解:  
+    action注解,注意此处要使用本插件提供的@ValidParam注解:  
     ```java
     public void test2(@ValidParam Test test) {
         renderJson(test);
@@ -191,3 +191,55 @@ JFinal的hibernate-validator插件，能够在jfinal中使用hibernate-validator
     
 - 嵌套对象的验证:  
     *由于jfinal限制暂时不支持嵌套验证*
+    
+- 分组验证
+分组类
+```java
+public class RegisterGroup {
+}
+```
+
+实体Bean
+```java
+public class UserInfo {
+
+    //默认分组 Default.class
+    @NotBlank(message = "手机号不能为空")
+    @Length(min = 11, max = 11)
+    private String phone;
+
+    //默认分组 Default.class
+    @NotBlank(message = "用户名不能为空")
+    @Length(min = 6, max = 32)
+    private String username;
+
+    //默认分组 Default.class
+    @NotBlank(message = "密码不能为空")
+    @Length(min = 6, max = 32)
+    private String password;
+
+    //RegisterGroup分组 RegisterGroup.class
+    @Range(min = 18, max = 120, message = "年龄应该在18到120周岁之间", groups = {RegisterGroup.class})
+    private int age;
+
+    //RegisterGroup分组 RegisterGroup.class
+    @NotBlank(message = "生日不能为空")
+    @Past(message = "生日必须大于今天", groups = {RegisterGroup.class})
+    private Date birthday;
+}
+```
+
+验证方法,action注解
+```java
+    //只校验Default分组, 可以不写
+    public void test2(@Para("") @ValidParam(groups={Default.class}) UserInfo userInfo) {
+        renderJson(test);
+    }
+```
+
+```java
+    //只校验RegisterGroup分组
+    public void test2(@Para("") @ValidParam(groups={RegisterGroup.class}) UserInfo userInfo) {
+        renderJson(test);
+    }
+```
