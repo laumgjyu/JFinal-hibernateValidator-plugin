@@ -243,3 +243,10 @@ public class UserInfo {
         renderJson(test);
     }
 ```
+
+```java
+    //校验RegisterGroup分组和Default分组
+    public void test2(@Para("") @ValidParam(groups={Default.class,RegisterGroup.class}) UserInfo userInfo) {
+        renderJson(test);
+    }
+```
